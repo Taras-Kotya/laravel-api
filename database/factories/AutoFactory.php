@@ -14,7 +14,13 @@ class AutoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'gos_nomer' => $this->faker->secondaryAddress,
+            'color' => $this->faker->colorName,
+            'vin' => $this->faker->isbn13,
+            'brand' => $this->faker->company,
+            'model' => $this->faker->jobTitle,
+            'year' => $this->faker->year($max = 'now')
         ];
     }
 }
