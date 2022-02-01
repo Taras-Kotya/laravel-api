@@ -13,6 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+/*
+Route::resources([
+    '/' => [WelcomeController::class, 'index'],
+    '/new' => [WelcomeController::class, 'new'],
+    '/search' => [WelcomeController::class, 'search'],
+    '/list' => [WelcomeController::class, 'list'],
+    '/list/search' => [WelcomeController::class, 'list_search'],
+
+    '/list/view/{id}' => [WelcomeController::class, 'auto_red_form'],
+    '/list/view/{id}/update' => [WelcomeController::class, 'auto_rauto_updateed_form'],
+    
+    
+    '/brand-all' => [ControllersBrandAuto::class, 'index'],
+    '/brand_export' => [ControllersBrandAuto::class, 'brand_export'],
+    '/brand-search' => [ControllersBrandAuto::class, 'brand_search'],
+    '/brand-ajax-search' => [ControllersBrandAuto::class, 'brand_ajax_search'],
+]);
+/* */

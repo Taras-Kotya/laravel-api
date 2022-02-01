@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -26,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    // protected $namespace = 'App\\Http\\Controllers';
+    protected $namespace = 'App\\Http\\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -38,14 +40,37 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::prefix('api')
+
+            Route::get('', [WelcomeController::class, 'index']);
+            Route::get('new', [WelcomeController::class, 'new']);
+            Route::get('search', [WelcomeController::class, 'search']);
+            Route::get('list', [WelcomeController::class, 'list']);
+            Route::get('list/search', [WelcomeController::class, 'list_search']);
+
+            Route::get('list/view/{id}', [WelcomeController::class, 'auto_red_form'])->name('auto_red_form');
+            Route::post('list/view/{id}/update', [WelcomeController::class, 'auto_update'])->name('auto_update');
+
+            Route::get('brand-all', [BrandController::class, 'index'])->name('brand_all');
+            Route::get('brand_export', [BrandController::class, 'brand_export'])->name('brand_export');
+            Route::get('brand-search', [BrandController::class, 'brand_search'])->name('brand_search');
+            Route::get('brand-ajax-search', [BrandController::class, 'brand_ajax_search']);
+
+            /**
+             * 
+             * 
+             * 
+             */
+
+            Route::prefix('api/V1')
                 ->middleware('api')
-                ->namespace($this->namespace)
+                ->namespace($this->namespace . '\\Api\\V1')
                 ->group(base_path('routes/api.php'));
 
+            /*
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+             */
         });
     }
 
