@@ -33,7 +33,7 @@ if (!empty($list)) {
     {{ Form::text('search', '', ['placeholder' => 'Введіть','required']);}}
 </p>
 <p>
-    {{ Form::label('unsort', 'Не шукати записи що містять:', array('class' => 'awesome')) }} <br>
+    <h5>Не шукати записи що містять:</h5>
 <p>
     {{ Form::text('unsort_brand', '', ['placeholder' => 'Марку машини']);}} <br>
     {{ Form::text('unsort_model', '', ['placeholder' => 'Модель']);}} <br>

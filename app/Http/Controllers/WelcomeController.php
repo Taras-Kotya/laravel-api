@@ -123,7 +123,11 @@ class WelcomeController extends Controller
 
         if (!empty($request->export_xls)) {
             // Експортирую страницу в XLS
-            if ($request->export_xls == 'page') $list = $list->paginate(10);
+            if ($request->export_xls == 'page'){
+                $list = $list->paginate(10);
+            } else {
+                $list = $list->get();
+            }
             print view('export', compact('list'));
             return back()->withInput();
         } else {
