@@ -78,6 +78,11 @@ class WelcomeController extends Controller
     }
 
 
+
+
+
+
+
     public function list_search(Request $request)
     {
         $list = Auto::sortable(['id' => 'ASC'])->where(function ($list) {
@@ -119,15 +124,14 @@ class WelcomeController extends Controller
         if (!empty($request->export_xls)) {
             // Експортирую страницу в XLS
             if ($request->export_xls == 'page') $list = $list->paginate(10);
-
-
             print view('export', compact('list'));
             return back()->withInput();
         } else {
             // Сортировка
             $list = $list->paginate(10);
             $list->appends($array_appends);
-            return view('list', compact('list'));
+            $go_xls = $go_xls = 1;
+            return view('list', compact('list','go_xls'));
         }
     }
 

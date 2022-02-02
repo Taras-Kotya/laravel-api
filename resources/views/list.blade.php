@@ -60,7 +60,9 @@
 
 
     {{ $list->links() }}
-
+    
+    
+    @if(!empty($go_xls))
     <hr>
     <h3>
         <a href="{{ url()->full() }}&export_xls=page" target="_blank" rel="noopener noreferrer">
@@ -71,6 +73,7 @@
             <button>Експортировать весь результат в XLS</button>
         </a>
     </h3>
+    @endif
 
 
     @extends('copy')
