@@ -169,9 +169,9 @@ class BrandController extends Controller
 
         if ($request->has('q')) {
             $search = $request->q;
-            $data = Brand::select('*')
+            $data = BrandRes::collection(Brand::select('*')
                 ->where('Make_Name', 'like', '%' . $search . '%')
-                ->get();
+                ->get());
         }
 
         return response()->json($data);
