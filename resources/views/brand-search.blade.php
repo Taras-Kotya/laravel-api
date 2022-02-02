@@ -42,7 +42,7 @@
         <small><tt style="color:orange">(исправить - нужна отдельная база)</tt></small>
 
         <p>
-            <select class="livesearch form-control" name="livesearch"></select>
+            <select class="livesearch form-control" name="Make_ID"></select>
         </p>
     </div>
     <p>
@@ -55,15 +55,15 @@
     $('.livesearch').select2({
         placeholder: 'Виберіть марку',
         ajax: {
-            url: '/brand-ajax-search',
+            url: '/ajax_brand',
             dataType: 'json',
             delay: 250,
             processResults: function(data) {
                 return {
                     results: $.map(data, function(item) {
                         return {
-                            text: item.name,
-                            id: item.creator_id
+                            text: item.Make_Name,
+                            id: item.Make_ID
                         }
                     })
                 };

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CronReq;
 use App\Http\Resources\BrandRes;
 use App\Http\Resources\CronRes;
+use App\Http\Resources\ModeliRes;
 use App\Models\Brand;
 use App\Models\Cron;
+use App\Models\Modeli;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -46,16 +48,15 @@ class BrandController extends Controller
         // json-база
         $json = Cron::find($id = 1);
 
-        if (empty($json->id))
-        {
+        if (empty($json->id)) {
             $new_json = ['id' => 1, 'time_create' => '0'];
             $json = Cron::firstOrCreate($new_json)->get();
-        } 
+        }
 
         if (!empty($json->time_create) && $json->time_create > $timer) {
-            header('refresh:3; url=' . url('brand_export/1'));
+            header('refresh:3; url=' . url('brand_json/1'));
             return 'До оновлення бази - ' . ($json->time_create - $timer) . ' сек';
-            return redirect()->to('brand_export')->send();
+            return redirect()->to('brand_json')->send();
         } else {
             $response = Http::get("https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json");
 
@@ -81,7 +82,7 @@ class BrandController extends Controller
                 $json = $json->update($data);
 
                 header('refresh:3; url=' . url('brand_get'));
-                return "Записали ". count( $response['Results']) ." бренд в файл";
+                return "Записали " . count($response['Results']) . " бренд в файл";
             } else {
                 echo "Файл недоступен для записи";
             }
@@ -94,7 +95,7 @@ class BrandController extends Controller
 
 
 
-    public function brand_export(Request $request)
+    public function brand_json(Request $request)
     {
 
         $Cron = Cron::find($id = 1);
@@ -123,8 +124,11 @@ class BrandController extends Controller
             $array['i_realCount'] = ($array['raznica'] > $array['count'] ? $array['count'] : $array['raznica']);
             // 300 = 200 + 100
             $array['i_end'] = $array['i_start'] + $array['i_realCount'];
-
+            // Відлік часу
             $start_time = microtime(true);
+
+            // перебор
+            $array['cnt_model'] = 0;
             for ($i = $array['i_start']; $i < $array['i_end']; $i++) {
                 $data = [
                     'Make_ID'       => $Json[$i]['Make_ID'],
@@ -132,11 +136,26 @@ class BrandController extends Controller
                 ];
 
                 $newBrand = Brand::firstOrCreate($data);
-                $upBrand = Brand::where('id', '=', $newBrand['id'])
+                $timerRefreshBrand = Brand::where('id', '=', $newBrand['id'])
                     ->update(['time_refresh' => $Cron->time_create]);
+
+                $Modeli = Modeli::where('Make_ID', '=', $data['Make_ID']);
+
+                $res = ModeliController::model_get($data['Make_ID']);
+                foreach ($res as $asd) {
+                    $array['cnt_model']++;
+                    $json = Modeli::firstOrCreate($asd)
+                    ->where('Make_ID', '=', $data['Make_ID'])
+                    ->get();
+                }
+                // return ModeliRes::collection($json);
             }
-            // return '<hr> Швидкість: ' . mb_substr((microtime(true) - $start_time), 0, 5) . ' сек';
+
+            // підраховую швидкість
+            $array['microtime'] = mb_substr((microtime(true) - $start_time), 0, 5) . ' secound';
+            
             return $array;
+
         } else {
             return $array;
         }
@@ -144,17 +163,35 @@ class BrandController extends Controller
 
 
 
-    public function brand_ajax_search(Request $request)
+    public function ajax_brand(Request $request)
     {
-        $movies = [];
+        $data = [];
 
         if ($request->has('q')) {
             $search = $request->q;
-            $movies = Brand::with('models')->select('*')
-                ->where('name', 'like', '%' . $search . '%')
+            $data = Brand::select('*')
+                ->where('Make_Name', 'like', '%' . $search . '%')
                 ->get();
         }
 
-        return response()->json($movies);
+        return response()->json($data);
     }
+    
+    
+    public function ajax_model(Request $request)
+    {
+        $data = [];
+
+        if ($request->has('q')) {
+            $search = $request->q;
+            $data = Brand::with('models')->select('*')
+                ->where('Make_ID', '=', $search)
+                ->get();
+        }
+
+        return response()->json($data);
+    }
+
+
+    
 }

@@ -18,7 +18,7 @@
             <tr>
                 <th scope="col"> @sortablelink('id', 'ID') </th>
                 <th scope="col"> @sortablelink('Make_Name','Назва Бренду') </th>
-                <th scope="col"> @sortablelink('Make_ID', 'ID у создателей') </th>
+                <th scope="col"> @sortablelink('Make_ID', 'ID бренда') </th>
         </thead>
         <tbody>
             @if(count($data))
@@ -26,7 +26,7 @@
             <tr>
                 <th scope="col"> {{ $asd->id }} </th>
                 <th scope="col"> {{ $asd->Make_Name }} </th>
-                <th scope="col"> <a href="{{ route('model', $asd->Make_ID ) }} " >Все моедли ID {{ $asd->Make_ID }}</a> </th>
+                <th scope="col"> <a href="{{ route('model', $asd->Make_ID ) }} " >ID {{ $asd->Make_ID }}</a> </th>
             </tr>
             @endforeach
             @endif
@@ -52,14 +52,11 @@
     </div>
     <br>
     <p>
-        (кожну хвилину, о 1 годині ночі, щомісяця - кожного 1 числа)
-    </p>
-    <p>
-        (по 200 шт, за 50 хвилин - 100001 запитів опрацює)
+        (парсинг, по 10 шт - сто мільйонів годин)
     </p>
     <div style="border: 1px solid #aaa; padding: 3px; background: #ddd; max-width: 35%">
         <code>
-            * 1 1 * * {{ route('brand_export', 200) }}
+            * 1 1 * * {{ route('brand_json', 10) }}
         </code>
     </div>
 

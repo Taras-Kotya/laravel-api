@@ -17,9 +17,9 @@ class CreateModelisTable extends Migration
         Schema::create('modelis', function (Blueprint $table) {
             $table->id();
             $table->integer('Make_ID')->default('0');
-            $table->char('Make_Name',70)->default('');
+            $table->char('Make_Name',90)->default('');
             $table->integer('Model_ID')->default('0');
-            $table->char('Model_Name',70)->default('');
+            $table->char('Model_Name',190)->default('');
             $table->timestamps();
         });
     }

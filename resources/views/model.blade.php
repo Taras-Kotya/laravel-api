@@ -12,13 +12,15 @@
 
 
 <body>
-    <h1>База моделей:</h1>
+    @if(!empty($data->Make_ID))
+    <h1> Моделі бренду #{{ $data[0]->Make_ID }} : {{ $data[0]->Make_Name }}</h1>
+    @else
+    <h1> Всі моделі</h1>
+    @endif;
     <table border="1" class='table table-striped'>
         <thead>
             <tr>
                 <th scope="col"> @sortablelink('id', 'ID') </th>
-                <th scope="col"> @sortablelink('Make_Name','Производитель') </th>
-                <th scope="col"> @sortablelink('Make_ID', 'ID бренда') </th>
                 <th scope="col"> @sortablelink('Model_Name','Назва Модели') </th>
                 <th scope="col"> @sortablelink('Model_ID', 'ID модели') </th>
         </thead>
@@ -27,8 +29,6 @@
             @foreach($data as $asd)
             <tr>
                 <th scope="col"> {{ $asd->id }} </th>
-                <th scope="col"> {{ $asd->Make_Name }} </th>
-                <th scope="col"> {{ $asd->Make_ID }} </th>
                 <th scope="col"> {{ $asd->Model_Name }} </th>
                 <th scope="col"> {{ $asd->Model_ID }} </th>
             </tr>

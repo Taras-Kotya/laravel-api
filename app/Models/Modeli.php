@@ -13,6 +13,7 @@ class Modeli extends Model
     
     
     protected $fillable = [
+        'id',
         'Make_ID',
         'Make_Name',
         'Model_ID',

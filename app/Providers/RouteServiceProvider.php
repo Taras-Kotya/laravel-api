@@ -54,15 +54,16 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::get('brand-all', [BrandController::class, 'index'])->name('brand_all');
             Route::get('brand_get', [BrandController::class, 'brand_get'])->name('brand_get');
-            Route::get('brand_export', [BrandController::class, 'brand_export'])->name('brand_export');
-            Route::get('brand_export/{count}', [BrandController::class, 'brand_export']);
+            Route::get('brand_json', [BrandController::class, 'brand_json']);
+            Route::get('brand_json/{count}', [BrandController::class, 'brand_json'])->name('brand_json');
             Route::get('brand-search', [BrandController::class, 'brand_search'])->name('brand_search');
-            Route::get('brand-ajax-search', [BrandController::class, 'brand_ajax_search']);
+            Route::get('ajax_brand', [BrandController::class, 'ajax_brand'])->name('ajax_brand');
+            Route::get('ajax_model', [BrandController::class, 'ajax_model'])->name('ajax_model');
 
 
             Route::get('model', [ModeliController::class, 'index']);
-            Route::get('model/{id}', [ModeliController::class, 'model_id']);
-            Route::get('model_get/{make_id}', [ModeliController::class, 'model_get']);
+            Route::get('model/{Make_ID}', [ModeliController::class, 'index'])->name('model');
+            Route::get('model_get/{Make_ID}', [ModeliController::class, 'model_get']);
 
             /**
              * 
