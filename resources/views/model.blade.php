@@ -15,7 +15,7 @@
     @if(!empty($data[0]->Make_ID))
     <h1> Моделі бренду: <u>{{ $data[0]->Make_Name }}</u></h1>
     @else
-    <h1> Всі моделі</h1>
+    <h1> Всі моделі </h1>
     @endif
     <table border="1" class='table table-striped'>
         <thead>
