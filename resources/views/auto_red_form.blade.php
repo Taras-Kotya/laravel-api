@@ -27,14 +27,8 @@
 {{ Form::close() }}
 
 
+@extends('copy')
 
-<div style='padding-top:15px'>
-    <center>
-        <small>
-            <tt>© Taras-Kotya</tt>
-        </small>
-    </center>
-</div>
 
 </body>
 

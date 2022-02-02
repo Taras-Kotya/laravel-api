@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBrandsTable extends Migration
+class CreateCronsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateBrandsTable extends Migration
      */
     public function up()
     {
-        Schema::create('brands', function (Blueprint $table) {
+        Schema::create('crons', function (Blueprint $table) {
             $table->id();
-            $table->char('Make_Name',90)->default('');
-            $table->integer('Make_ID')->default('0');
-            $table->integer('time_refresh')->default('0');
+            $table->integer('time_create')->default('0');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateBrandsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('brands');
+        Schema::dropIfExists('crons');
     }
 }

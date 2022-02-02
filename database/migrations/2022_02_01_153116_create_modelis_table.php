@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModelsTable extends Migration
+class CreateModelisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('models', function (Blueprint $table) {
+        
+        Schema::create('modelis', function (Blueprint $table) {
             $table->id();
-            $table->char('name',70)->default('');
-            $table->integer('brand_id')->default('0');
-            $table->integer('time_create')->default('0');
-            $table->integer('time_refresh')->default('0');
+            $table->integer('Make_ID')->default('0');
+            $table->char('Make_Name',70)->default('');
+            $table->integer('Model_ID')->default('0');
+            $table->char('Model_Name',70)->default('');
             $table->timestamps();
         });
     }

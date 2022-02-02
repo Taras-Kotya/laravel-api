@@ -92,13 +92,7 @@ function generate_string($strength = 0)
 
 
 
-    <div style='padding-top:15px'>
-        <center>
-            <small>
-                <tt>© Taras-Kotya</tt>
-            </small>
-        </center>
-    </div>
+    @extends('copy')
 
 </body>
 

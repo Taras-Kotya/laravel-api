@@ -17,16 +17,16 @@
         <thead>
             <tr>
                 <th scope="col"> @sortablelink('id', 'ID') </th>
-                <th scope="col"> @sortablelink('name','Назва Бренду') </th>
-                <th scope="col"> @sortablelink('creator_id', 'ID у создателей') </th>
+                <th scope="col"> @sortablelink('Make_Name','Назва Бренду') </th>
+                <th scope="col"> @sortablelink('Make_ID', 'ID у создателей') </th>
         </thead>
         <tbody>
             @if(count($data))
             @foreach($data as $asd)
             <tr>
                 <th scope="col"> {{ $asd->id }} </th>
-                <th scope="col"> {{ $asd->name }} </th>
-                <th scope="col"> {{ $asd->creator_id }} </th>
+                <th scope="col"> {{ $asd->Make_Name }} </th>
+                <th scope="col"> <a href="{{ route('model', $asd->Make_ID ) }} " >Все моедли ID {{ $asd->Make_ID }}</a> </th>
             </tr>
             @endforeach
             @endif
@@ -35,19 +35,37 @@
 
     {{ $data->links() }}
 
+
+
+    <br>
+    <br>
     <hr>
-    <h3>
-        <a href="{{ route('brand_export') }}" target="_blank" rel="noopener noreferrer">
-            <button>Обновить список брендов (загрузка из постороннего ресурса, 500 шт)</button>
-        </a>
-    </h3>
-    <div style='padding-top:15px'>
-        <center>
-            <small>
-                <tt>© Taras-Kotya</tt>
-            </small>
-        </center>
+
+    <h2>Автооновлення бази CRON:</h2>
+    <p>
+        (кожного 1 числа, щомісяця, опівночі)
+    </p>
+    <div style="border: 1px solid #aaa; padding: 3px; background: #ddd; max-width: 35%">
+        <code>
+            0 0 1 * * {{ route('brand_get') }}
+        </code>
     </div>
+    <br>
+    <p>
+        (кожну хвилину, о 1 годині ночі, щомісяця - кожного 1 числа)
+    </p>
+    <p>
+        (по 200 шт, за 50 хвилин - 100001 запитів опрацює)
+    </p>
+    <div style="border: 1px solid #aaa; padding: 3px; background: #ddd; max-width: 35%">
+        <code>
+            * 1 1 * * {{ route('brand_export', 200) }}
+        </code>
+    </div>
+
+
+    @extends('copy')
+
 
 </body>
 

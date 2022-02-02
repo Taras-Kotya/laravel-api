@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AutoReq extends FormRequest
+class CronReq extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,7 @@ class AutoReq extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:255',
-            'gos_nomer' => 'min:3|max:255',
-            'color' => 'min:3|max:255',
-            'vin' => 'max:17|min:17',
-            'brand' => 'max:30',
-            'model' => 'max:60',
-            'year'=> 'max:8'
+            'time_create' => 'required|max:30'
         ];
     }
 }

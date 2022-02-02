@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ModeliController;
 use App\Http\Controllers\WelcomeController;
+use App\Models\Modeli;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -51,9 +53,16 @@ class RouteServiceProvider extends ServiceProvider
             Route::post('list/view/{id}/update', [WelcomeController::class, 'auto_update'])->name('auto_update');
 
             Route::get('brand-all', [BrandController::class, 'index'])->name('brand_all');
+            Route::get('brand_get', [BrandController::class, 'brand_get'])->name('brand_get');
             Route::get('brand_export', [BrandController::class, 'brand_export'])->name('brand_export');
+            Route::get('brand_export/{count}', [BrandController::class, 'brand_export']);
             Route::get('brand-search', [BrandController::class, 'brand_search'])->name('brand_search');
             Route::get('brand-ajax-search', [BrandController::class, 'brand_ajax_search']);
+
+
+            Route::get('model', [ModeliController::class, 'index']);
+            Route::get('model/{id}', [ModeliController::class, 'model_id']);
+            Route::get('model_get/{make_id}', [ModeliController::class, 'model_get']);
 
             /**
              * 
