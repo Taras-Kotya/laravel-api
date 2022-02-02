@@ -54,7 +54,7 @@ class BrandController extends Controller
         }
 
         if (!empty($json->time_create) && $json->time_create > $timer) {
-            header('refresh:3; url=' . url('brand_json/1'));
+            header('refresh:1; url=' . url('brand_json/1'));
             return 'До оновлення бази - ' . ($json->time_create - $timer) . ' сек';
             return redirect()->to('brand_json')->send();
         } else {
@@ -81,7 +81,7 @@ class BrandController extends Controller
                 $data = ['time_create' => time()];
                 $json = $json->update($data);
 
-                header('refresh:3; url=' . url('brand_get'));
+                header('refresh:1; url=' . url('brand_get'));
                 return "Записали " . count($response['Results']) . " бренд в файл";
             } else {
                 echo "Файл недоступен для записи";
